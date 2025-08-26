@@ -9,16 +9,19 @@ import AppliedJobs from './AppliedJobs'
 import UpdateProfileDialog from './UpdateProfileDialog'
 import { useSelector } from 'react-redux'
 import useGetAppliedJobs from '@/hooks/useGetAppliedJobs'
+import axios from 'axios'
 
 const skills = ['html', 'js', 'css', 'react']
 const Profile = () => {
     const ishaveResume = true;
-
     const [open, setOpen] = useState(false)
-
     const { user } = useSelector(store => store.auth)
-
     useGetAppliedJobs()
+
+    const genrateSummary = () => {
+        console.log(user)
+        const res = axios.post(`${import.meta.env.VITE_USER_API_END_POINT}/profile/summary`, { skills }, { withCredentials: true }).then(res => console.log(res.data)).catch(err => console.log("error in genrating summary", err))
+    }
 
     return (
         <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 dark:from-slate-900 dark:via-purple-900 dark:to-slate-800">
@@ -136,7 +139,15 @@ const Profile = () => {
                             )}
                         </div>
                     </div>
+                  {ishaveResume &&   <div>
+                    profile Description :
+                    <button className='text-sm bg-blue-600 p-2'
+                    onClick={genrateSummary}
+                    >Generate Summary</button>
+                    </div>}
                 </div>
+                </div>
+                 <div>
 
                 {/* Applied Jobs Section */}
                 <div className='max-w-4xl mx-auto bg-white/95 dark:bg-slate-800/95 backdrop-blur-xl border border-white/20 dark:border-slate-700/50 rounded-3xl shadow-2xl p-8 md:p-12'>

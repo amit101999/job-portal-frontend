@@ -1,13 +1,13 @@
 import React from 'react'
 import { LogOut, User2, Briefcase, Building, Home, Search, Eye } from 'lucide-react'
-import { Link, redirect, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { toast } from 'sonner'
+import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import { setAuthUser } from '@/redux/authSlice'
 
 const Navbar = () => {
-    const { user } = useSelector(store => store.auth)
+    // Mock user data and functions for demonstration
+     const { user } = useSelector(store => store.auth)
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
@@ -23,31 +23,22 @@ const Navbar = () => {
             }
         } catch (err) {
             console.log("error in logout: ", err)
-            toast.error(err?.response?.data?.message || "Logout failed")
+            // toast.error(err?.response?.data?.message || "Logout failed")
         }
     }
 
     return (
-        <header className="relative z-[100] bg-gradient-to-r from-slate-900 via-purple-900 to-slate-900 dark:from-slate-950 dark:via-purple-950 dark:to-slate-950 border-b border-purple-500/20 shadow-2xl backdrop-blur-xl">
-            {/* Animated background elements */}
-            <div className="absolute inset-0 overflow-hidden">
-                <div className="absolute top-0 left-20 w-32 h-32 bg-gradient-to-r from-purple-500/10 to-pink-500/10 rounded-full blur-3xl animate-pulse"></div>
-                <div className="absolute top-0 right-20 w-24 h-24 bg-gradient-to-r from-emerald-500/10 to-cyan-500/10 rounded-full blur-2xl animate-pulse delay-1000"></div>
-            </div>
-
-            <div className="relative z-10 container mx-auto px-6 py-4 flex items-center justify-between">
+        <header className="relative z-50 bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800 shadow-sm">
+            <div className="container mx-auto px-6 py-4 flex items-center justify-between">
                 {/* Logo */}
                 <div className="flex items-center">
-                    <div className="relative group cursor-pointer">
-                        <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-pink-600 rounded-lg blur opacity-25 group-hover:opacity-40 transition-opacity duration-300"></div>
-                        <div className="relative px-4 py-2 bg-gradient-to-r from-purple-600/20 to-pink-600/20 rounded-lg backdrop-blur-sm border border-purple-500/30">
-                            <span className="text-2xl font-black bg-gradient-to-r from-white to-purple-200 bg-clip-text text-transparent">
-                                Dream
-                            </span>
-                            <span className="text-2xl font-black bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
-                                Jobs
-                            </span>
-                        </div>
+                    <div className="cursor-pointer">
+                        <span className="text-2xl font-bold text-gray-900 dark:text-white">
+                            Dream
+                        </span>
+                        <span className="text-2xl font-bold text-blue-600 dark:text-blue-400">
+                            Jobs
+                        </span>
                     </div>
                 </div>
 
@@ -57,58 +48,37 @@ const Navbar = () => {
                         {user?.role === 'recruiter' ? (
                             <>
                                 <li>
-                                    <div className="group relative">
-                                        <div className="flex items-center gap-2 px-4 py-2 rounded-xl text-white/90 hover:text-white font-medium transition-all duration-300 hover:bg-white/10 backdrop-blur-sm">
-                                            <Building className="w-4 h-4" />
-                                            <Link to="/admin/companies">Companies</Link>
-                                        </div>
-                                        <div className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-purple-400 to-pink-400 group-hover:w-full transition-all duration-300"></div>
-                                    </div>
+                                    <a href="/admin/companies" className="flex items-center gap-2 text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 font-medium transition-colors duration-200">
+                                        <Building className="w-4 h-4" />
+                                        Companies
+                                    </a>
                                 </li>
                                 <li>
-                                    <div className="group relative">
-                                        <div className="flex items-center gap-2 px-4 py-2 rounded-xl text-white/90 hover:text-white font-medium transition-all duration-300 hover:bg-white/10 backdrop-blur-sm">
-                                            <Briefcase className="w-4 h-4" />
-                                            <Link to="/admin/jobs">Jobs</Link>
-                                        </div>
-                                        <div className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-purple-400 to-pink-400 group-hover:w-full transition-all duration-300"></div>
-                                    </div>
+                                    <a href="/admin/jobs" className="flex items-center gap-2 text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 font-medium transition-colors duration-200">
+                                        <Briefcase className="w-4 h-4" />
+                                        Jobs
+                                    </a>
                                 </li>
                             </>
                         ) : (
                             <>
                                 <li>
-                                    <Link to="/">
-                                        <div className="group relative">
-                                            <div className="flex items-center gap-2 px-4 py-2 rounded-xl text-white/90 hover:text-white font-medium transition-all duration-300 hover:bg-white/10 backdrop-blur-sm">
-                                                <Home className="w-4 h-4" />
-                                                Home
-                                            </div>
-                                            <div className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-purple-400 to-pink-400 group-hover:w-full transition-all duration-300"></div>
-                                        </div>
-                                    </Link>
+                                    <a href="/" className="flex items-center gap-2 text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 font-medium transition-colors duration-200">
+                                        <Home className="w-4 h-4" />
+                                        Home
+                                    </a>
                                 </li>
                                 <li>
-                                    <Link to="/jobs">
-                                        <div className="group relative">
-                                            <div className="flex items-center gap-2 px-4 py-2 rounded-xl text-white/90 hover:text-white font-medium transition-all duration-300 hover:bg-white/10 backdrop-blur-sm">
-                                                <Briefcase className="w-4 h-4" />
-                                                Jobs
-                                            </div>
-                                            <div className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-purple-400 to-pink-400 group-hover:w-full transition-all duration-300"></div>
-                                        </div>
-                                    </Link>
+                                    <a href="/jobs" className="flex items-center gap-2 text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 font-medium transition-colors duration-200">
+                                        <Briefcase className="w-4 h-4" />
+                                        Jobs
+                                    </a>
                                 </li>
                                 <li>
-                                    <Link to="/browse">
-                                        <div className="group relative">
-                                            <div className="flex items-center gap-2 px-4 py-2 rounded-xl text-white/90 hover:text-white font-medium transition-all duration-300 hover:bg-white/10 backdrop-blur-sm">
-                                                <Search className="w-4 h-4" />
-                                                Browse
-                                            </div>
-                                            <div className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-purple-400 to-pink-400 group-hover:w-full transition-all duration-300"></div>
-                                        </div>
-                                    </Link>
+                                    <a href="/browse" className="flex items-center gap-2 text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 font-medium transition-colors duration-200">
+                                        <Search className="w-4 h-4" />
+                                        Browse
+                                    </a>
                                 </li>
                             </>
                         )}
@@ -118,71 +88,59 @@ const Navbar = () => {
                 {/* Auth Section */}
                 {!user ? (
                     <div className="flex items-center gap-4">
-                        <Link to="/login">
-                            <button className="px-6 py-2 text-white/90 hover:text-white font-medium border border-white/20 rounded-xl hover:bg-white/10 backdrop-blur-sm transition-all duration-300">
+                        <a href="/login">
+                            <button className="px-4 py-2 text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white font-medium border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition-all duration-200">
                                 Login
                             </button>
-                        </Link>
-                        <Link to="/signup">
-                            <button className="px-6 py-2 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold rounded-xl shadow-lg transform hover:scale-105 transition-all duration-300">
+                        </a>
+                        <a href="/signup">
+                            <button className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition-colors duration-200">
                                 Sign Up
                             </button>
-                        </Link>
+                        </a>
                     </div>
                 ) : (
                     <div className="relative group">
                         <div className="flex items-center gap-3 cursor-pointer">
-                            <div className="relative">
-                                <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-pink-600 rounded-full blur opacity-50 group-hover:opacity-75 transition-opacity duration-300"></div>
-                                <img
-                                    src={user?.profile?.profilePic || "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=face"}
-                                    alt="Profile"
-                                    className="relative w-10 h-10 rounded-full border-2 border-white/30 object-cover"
-                                />
+                            <div className="w-10 h-10 bg-gray-200 dark:bg-gray-700 rounded-full flex items-center justify-center">
+                                <User2 className="w-5 h-5 text-gray-600 dark:text-gray-400" />
                             </div>
                             <div className="hidden md:block">
-                                <div className="text-white font-medium text-sm">{user?.fullname}</div>
-                                <div className="text-white/60 text-xs">{user?.profile?.bio}</div>
+                                <div className="text-gray-900 dark:text-white font-medium text-sm">{user?.fullname}</div>
+                                <div className="text-gray-600 dark:text-gray-400 text-xs">{user?.profile?.bio}</div>
                             </div>
                         </div>
 
-                        {/* Dropdown Menu - Fixed z-index */}
-                        <div className="absolute z-[9999] right-0 top-full mt-2 w-72 bg-white/95 dark:bg-slate-800/95 backdrop-blur-xl rounded-2xl shadow-2xl border border-white/20 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-2 group-hover:translate-y-0">
+                        {/* Dropdown Menu */}
+                        <div className="absolute right-0 top-full mt-2 w-64 bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 transform translate-y-2 group-hover:translate-y-0 z-50">
                             {/* User Info */}
-                            <div className="p-6 border-b border-slate-200/50 dark:border-slate-700/50">
-                                <div className="flex items-center gap-4">
-                                    <div className="relative">
-                                        <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-pink-600 rounded-full blur opacity-30"></div>
-                                        <img
-                                            src={user?.profile?.profilePic || "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=face"}
-                                            alt="Profile"
-                                            className="relative w-12 h-12 rounded-full border-2 border-purple-200 object-cover"
-                                        />
+                            <div className="p-4 border-b border-gray-200 dark:border-gray-700">
+                                <div className="flex items-center gap-3">
+                                    <div className="w-12 h-12 bg-gray-200 dark:bg-gray-700 rounded-full flex items-center justify-center">
+                                        <User2 className="w-6 h-6 text-gray-600 dark:text-gray-400" />
                                     </div>
                                     <div>
-                                        <h4 className="font-bold text-slate-800 dark:text-white">{user?.fullname}</h4>
-                                        <p className="text-sm text-slate-600 dark:text-slate-300">{user?.profile?.bio}</p>
+                                        <h4 className="font-semibold text-gray-900 dark:text-white">{user?.fullname}</h4>
+                                        <p className="text-sm text-gray-600 dark:text-gray-400">{user?.profile?.bio}</p>
                                     </div>
                                 </div>
                             </div>
 
                             {/* Menu Items */}
-                            <div className="p-4 space-y-2">
+                            <div className="p-2">
                                 {user?.role === "student" && (
-                                    <Link to="/profile">
-                                        <div className="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-700 dark:text-slate-300 hover:bg-gradient-to-r hover:from-purple-50 hover:to-pink-50 dark:hover:from-purple-900/20 dark:hover:to-pink-900/20 transition-all duration-300 cursor-pointer group/item">
-                                            <User2 className="w-4 h-4 text-purple-600 group-hover/item:text-purple-700" />
-                                            <span className="font-medium">View Profile</span>
-                                        </div>
-                                    </Link>
+                                    <a href="/profile" className="flex items-center gap-3 px-4 py-3 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-200">
+                                        <User2 className="w-4 h-4" />
+                                        <span className="font-medium">View Profile</span>
+                                    </a>
                                 )}
-                                <div
-                                    className="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-700 dark:text-slate-300 hover:bg-gradient-to-r hover:from-red-50 hover:to-pink-50 dark:hover:from-red-900/20 dark:hover:to-pink-900/20 transition-all duration-300 cursor-pointer group/item"
+                                <button
                                     onClick={logoutHandler}
+                                    className="w-full flex items-center gap-3 px-4 py-3 rounded-md text-gray-700 dark:text-gray-300 hover:bg-red-50 dark:hover:bg-red-900/20 hover:text-red-600 dark:hover:text-red-400 transition-colors duration-200"
                                 >
-                                    <LogOut className="w-4 h-4 text-red-600 group-hover/item:text-red-700" />
+                                    <LogOut className="w-4 h-4" />
                                     <span className="font-medium">Logout</span>
-                                </div>
+                                </button>
                             </div>
                         </div>
                     </div>

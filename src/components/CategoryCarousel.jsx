@@ -25,24 +25,18 @@ const CategoryCarousel = () => {
     }
 
     return (
-        <div className="relative py-16 bg-gradient-to-b from-slate-50 to-white dark:from-slate-900 dark:to-slate-800">
-            {/* Background decorative elements */}
-            <div className="absolute inset-0 overflow-hidden">
-                <div className="absolute top-10 left-10 w-40 h-40 bg-gradient-to-r from-purple-400/10 to-pink-400/10 rounded-full blur-3xl animate-pulse"></div>
-                <div className="absolute bottom-10 right-10 w-32 h-32 bg-gradient-to-r from-blue-400/10 to-cyan-400/10 rounded-full blur-2xl animate-pulse delay-1000"></div>
-            </div>
-
+        <div className="relative py-16 bg-white dark:bg-gray-900">
             <div className="relative z-10 max-w-6xl mx-auto px-4">
                 {/* Section Header */}
                 <div className="text-center mb-12">
-                    <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-purple-100 to-pink-100 dark:from-purple-900/30 dark:to-pink-900/30 rounded-full mb-4">
-                        <Sparkles className="w-4 h-4 text-purple-600" />
-                        <span className="text-sm font-semibold text-purple-700 dark:text-purple-300">Popular Categories</span>
+                    <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-gray-100 dark:bg-gray-800 rounded-full mb-4">
+                        <Sparkles className="w-4 h-4 text-blue-600" />
+                        <span className="text-sm font-medium text-gray-700 dark:text-gray-300">Popular Categories</span>
                     </div>
-                    <h2 className="text-4xl md:text-5xl font-black bg-gradient-to-r from-slate-900 to-purple-900 dark:from-white dark:to-purple-200 bg-clip-text text-transparent">
+                    <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white">
                         Explore by Category
                     </h2>
-                    <p className="mt-4 text-lg text-slate-600 dark:text-slate-300 max-w-2xl mx-auto">
+                    <p className="mt-3 text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
                         Find opportunities in your field of expertise
                     </p>
                 </div>
@@ -52,20 +46,20 @@ const CategoryCarousel = () => {
                     {/* Navigation Buttons */}
                     <button
                         onClick={prevSlide}
-                        className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 z-20 p-3 bg-white/90 dark:bg-slate-800/90 backdrop-blur-sm rounded-full shadow-lg border border-white/20 hover:bg-white dark:hover:bg-slate-700 transition-all duration-300 hover:scale-110"
+                        className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 z-20 p-3 bg-white dark:bg-gray-800 rounded-full shadow-lg border border-gray-200 dark:border-gray-700 hover:shadow-xl transition-all duration-200"
                     >
-                        <ChevronLeft className="w-6 h-6 text-slate-700 dark:text-slate-300" />
+                        <ChevronLeft className="w-5 h-5 text-gray-700 dark:text-gray-300" />
                     </button>
 
                     <button
                         onClick={nextSlide}
-                        className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 z-20 p-3 bg-white/90 dark:bg-slate-800/90 backdrop-blur-sm rounded-full shadow-lg border border-white/20 hover:bg-white dark:hover:bg-slate-700 transition-all duration-300 hover:scale-110"
+                        className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 z-20 p-3 bg-white dark:bg-gray-800 rounded-full shadow-lg border border-gray-200 dark:border-gray-700 hover:shadow-xl transition-all duration-200"
                     >
-                        <ChevronRight className="w-6 h-6 text-slate-700 dark:text-slate-300" />
+                        <ChevronRight className="w-5 h-5 text-gray-700 dark:text-gray-300" />
                     </button>
 
                     {/* Carousel Content */}
-                    <div className="overflow-hidden rounded-2xl">
+                    <div className="overflow-hidden rounded-lg">
                         <div
                             className="flex transition-transform duration-500 ease-in-out"
                             style={{ transform: `translateX(-${currentIndex * 100}%)` }}
@@ -73,8 +67,8 @@ const CategoryCarousel = () => {
                             {categories.map((category, index) => {
                                 const Icon = category.icon
                                 return (
-                                    <div key={index} className="w-full flex-shrink-0 px-4">
-                                        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-6">
+                                    <div key={index} className="w-full flex-shrink-0 px-2">
+                                        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4">
                                             {categories.map((cat, catIndex) => {
                                                 const CatIcon = cat.icon
                                                 return (
@@ -82,31 +76,25 @@ const CategoryCarousel = () => {
                                                         key={catIndex}
                                                         className="group relative"
                                                     >
-                                                        {/* Glow Effect */}
-                                                        <div className={`absolute inset-0 bg-gradient-to-r ${cat.color} rounded-2xl blur opacity-20 group-hover:opacity-40 transition-opacity duration-300`}></div>
-
                                                         {/* Card */}
                                                         <button
                                                             onClick={() => searchJobHandler(cat.name.toLowerCase())}
-                                                            className="relative w-full p-6 bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm rounded-2xl border border-white/20 dark:border-slate-700/50 shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-105 group"
+                                                            className="relative w-full p-6 bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 shadow-sm hover:shadow-md transition-all duration-200 hover:-translate-y-1 group"
                                                         >
                                                             {/* Icon */}
-                                                            <div className={`mb-4 p-3 bg-gradient-to-r ${cat.color} rounded-xl w-fit mx-auto`}>
-                                                                <CatIcon className="w-6 h-6 text-white" />
+                                                            <div className="mb-4 p-3 bg-blue-50 dark:bg-blue-900/20 rounded-lg w-fit mx-auto">
+                                                                <CatIcon className="w-6 h-6 text-blue-600 dark:text-blue-400" />
                                                             </div>
 
                                                             {/* Category Name */}
-                                                            <h3 className="font-bold text-lg text-slate-800 dark:text-white mb-2">
+                                                            <h3 className="font-semibold text-lg text-gray-900 dark:text-white mb-2">
                                                                 {cat.name}
                                                             </h3>
 
                                                             {/* Subtitle */}
-                                                            <p className="text-sm text-slate-600 dark:text-slate-300 mb-4">
+                                                            <p className="text-sm text-gray-600 dark:text-gray-400">
                                                                 Explore opportunities
                                                             </p>
-
-                                                            {/* Action Button */}
-
                                                         </button>
                                                     </div>
                                                 )
@@ -124,9 +112,9 @@ const CategoryCarousel = () => {
                             <button
                                 key={index}
                                 onClick={() => setCurrentIndex(index)}
-                                className={`w-3 h-3 rounded-full transition-all duration-300 ${index === currentIndex
-                                    ? 'bg-gradient-to-r from-purple-600 to-pink-600 scale-125'
-                                    : 'bg-slate-300 dark:bg-slate-600 hover:bg-slate-400 dark:hover:bg-slate-500'
+                                className={`w-2.5 h-2.5 rounded-full transition-all duration-200 ${index === currentIndex
+                                    ? 'bg-blue-600 scale-125'
+                                    : 'bg-gray-300 dark:bg-gray-600 hover:bg-gray-400 dark:hover:bg-gray-500'
                                     }`}
                             />
                         ))}
@@ -135,10 +123,10 @@ const CategoryCarousel = () => {
 
                 {/* Bottom CTA */}
                 <div className="text-center mt-12">
-                    <p className="text-slate-600 dark:text-slate-300 mb-4">
+                    <p className="text-gray-600 dark:text-gray-400 mb-4">
                         Can't find your category?
                     </p>
-                    <button className="px-8 py-3 bg-gradient-to-r from-slate-800 to-slate-900 dark:from-slate-700 dark:to-slate-800 text-white font-semibold rounded-full hover:from-slate-900 hover:to-black transition-all duration-300 hover:scale-105">
+                    <button className="px-6 py-2.5 bg-gray-900 dark:bg-gray-700 text-white font-medium rounded-lg hover:bg-gray-800 dark:hover:bg-gray-600 transition-colors duration-200">
                         View All Categories
                     </button>
                 </div>
